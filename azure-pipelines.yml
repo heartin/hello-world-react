@@ -39,7 +39,7 @@ stages:
           $(tag)
     - task: PublishBuildArtifacts@1
       inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        PathtoPublish: 'build'
         ArtifactName: 'drop'
         publishLocation: 'Container'
     - task: AzureRmWebAppDeployment@4
