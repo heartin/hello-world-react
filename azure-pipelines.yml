@@ -54,4 +54,4 @@ stages:
         WebAppName: 'helloworldreact'
         packageForLinux: '$(Pipeline.Workspace)/*/$(Build.BuildId).zip'
         RuntimeStack: 'NODE|10.14'
-        StartupCommand: 'rpm run start'
+        StartupCommand: 'npm run start'
