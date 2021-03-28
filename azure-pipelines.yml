@@ -52,6 +52,6 @@ stages:
         azureSubscription: 'Visual Studio Enterprise Subscription(227543ae-2869-4aec-8298-158741cf2625)'
         appType: 'webAppLinux'
         WebAppName: 'helloworldreact'
-        packageForLinux: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
+        packageForLinux: '$(Pipeline.Workspace)/*/$(Build.BuildId).zip'
         RuntimeStack: 'NODE|10.14'
         StartupCommand: 'rpm run start'
