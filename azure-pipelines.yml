@@ -37,16 +37,21 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
-    - task: PublishBuildArtifacts@1
+    - task: ArchiveFiles@2
       inputs:
-        PathtoPublish: 'build'
-        ArtifactName: 'drop'
-        publishLocation: 'Container'
+        rootFolderOrFile: '$(Build.BinariesDirectory)'
+        includeRootFolder: true
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+        replaceExistingArchive: true
+    - upload: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+      artifact: drop
     - task: AzureRmWebAppDeployment@4
       inputs:
         ConnectionType: 'AzureRM'
         azureSubscription: 'Visual Studio Enterprise Subscription(227543ae-2869-4aec-8298-158741cf2625)'
         appType: 'webAppLinux'
         WebAppName: 'helloworldreact'
-        packageForLinux: '$(Build.ArtifactStagingDirectory)/*.zip'
-        RuntimeStack: 'NODE|14-lts'
+        packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+        RuntimeStack: 'NODE|10.14'
+        StartupCommand: 'rpm run start'
